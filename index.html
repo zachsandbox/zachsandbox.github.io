@@ -41,7 +41,6 @@
 
 
     <div id="quote-widget">
-      <h2>Quote</h2>
       <div id="quote-text">Loading...</div>
       <div id="quote-author"></div>
     </div>
@@ -76,13 +75,13 @@
         });
 
   fetch('quotes.json')
-  .then(response => response.json())
-  .then(quotes => {
-    const today = new Date();
-    const index = today.getDate() % quotes.length;
-    const quote = quotes[index];
-    document.getElementById('quote-text').innerHTML = `"${quote.text}"`;
-    document.getElementById('quote-author').innerHTML = `— ${quote.author}`;
+    .then(response => response.json())
+    .then(quotes => {
+      const today = new Date();
+      const index = today.getDate() % quotes.length;
+      const quote = quotes[index];
+      document.getElementById('quote-text').innerHTML = `"${quote.text}"`;
+      document.getElementById('quote-author').innerHTML = `— ${quote.author}`;
   });
 
     </script>
