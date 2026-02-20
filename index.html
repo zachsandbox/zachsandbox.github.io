@@ -74,15 +74,15 @@
           console.error('Fetch error:', error);
         });
 
-  fetch('quotes.json')
-    .then(response => response.json())
-    .then(quotes => {
-      const today = new Date();
-      const index = today.getDate() % quotes.length;
-      const quote = quotes[index];
-      document.getElementById('quote-text').innerHTML = `"${quote.text}"`;
-      document.getElementById('quote-author').innerHTML = `— ${quote.author}`;
-  });
+      fetch('quotes.json')
+        .then(response => response.json())
+        .then(quotes => {
+          const today = new Date();
+          const index = today.getDate() % quotes.length;
+          const quote = quotes[index];
+          document.getElementById('quote-text').innerHTML = `"${quote.text}"`;
+          document.getElementById('quote-author').innerHTML = `— ${quote.author}`;
+        });
 
     </script>
 
