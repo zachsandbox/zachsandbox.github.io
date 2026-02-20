@@ -39,6 +39,13 @@
       <div id="weather-info">Loading...</div>
     </div>
 
+
+    <div id="quote-widget">
+      <h2>Quote</h2>
+      <div id="quote-text">Loading...</div>
+      <div id="quote-author"></div>
+    </div>
+
     <script>
       const apiKey = 'f3f3c2bb23f7e9270351752239a94980';
       const city = 'Jacksonville Beach,US';
@@ -67,13 +74,18 @@
           document.getElementById('weather-info').innerHTML = 'Weather data unavailable.';
           console.error('Fetch error:', error);
         });
-    </script>
 
-    <div id="quote-widget">
-    <h2>Quote</h2>
-    <div id="quote-text">Loading...</div>
-    <div id="quote-author"></div>
-    </div>
+  fetch('quotes.json')
+  .then(response => response.json())
+  .then(quotes => {
+    const today = new Date();
+    const index = today.getDate() % quotes.length;
+    const quote = quotes[index];
+    document.getElementById('quote-text').innerHTML = `"${quote.text}"`;
+    document.getElementById('quote-author').innerHTML = `— ${quote.author}`;
+  });
+
+    </script>
 
   </body>
 </html>
