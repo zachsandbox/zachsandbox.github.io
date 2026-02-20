@@ -4,9 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zach's Sandbox</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 0 20px;
+        background-color: #f0f4f8;
+        color: #333;
+      }
+      h1 {
+        color: #2c5282;
+      }
+      #weather-widget {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      #weather-info {
+        font-size: 1.2em;
+        margin-top: 10px;
+      }
+    </style>
   </head>
   <body>
+
     <h1>Zach's Sandbox</h1>
-    <p>This site is under construction. Cool stuff coming soon.</p>
+    <p>A place to experiment with code.</p>
+
+    <div id="weather-widget">
+      <h2>Weather in Jacksonville Beach</h2>
+      <div id="weather-info">Loading...</div>
+    </div>
+
+    <script>
+      const apiKey = 'f3f3c2bb23f7e9270351752239a94980';
+      const city = 'Jacksonville Beach,US';
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+
+      fetch(apiUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const weatherInfo = document.getElementById('weather-info');
+          const temperature = Math.round(data.main.temp);
+          const feelsLike = Math.round(data.main.feels_like);
+          const description = data.weather[0].description;
+          const humidity = data.main.humidity;
+          weatherInfo.innerHTML = `
+            <strong>${temperature}°F</strong> — ${description}<br>
+            Feels like: ${feelsLike}°F<br>
+            Humidity: ${humidity}%
+          `;
+        })
+        .catch(error => {
+          document.getElementById('weather-info').innerHTML = 'Weather data unavailable.';
+          console.error('Fetch error:', error);
+        });
+    </script>
+
   </body>
 </html>
